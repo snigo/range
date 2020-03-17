@@ -183,6 +183,26 @@ range.clamp(); // NaN
 
 ***
 
+#### `Range.prototype.has()`
+
+Returns boolean indicating whether provided number within a range.
+
+| **Parameter** | **Type** | **Default value** | **Notes**                                      |
+|---------------|----------|-------------------|------------------------------------------------|
+| `number`      | `number` |                   |                                                |
+
+```js
+
+const range = new Range(99);
+range.has(100); // false
+range.has(-42); // false
+range.has(15); // true
+range.has(); // false
+
+```
+
+***
+
 #### `Range.prototype.forEach()`
 
 Executes provided function on every element of the range with provided step. If no step provided initial this.step will be used. Similarly to forEach in `Array`, following arguments will be passed to the callback:

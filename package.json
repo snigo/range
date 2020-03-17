@@ -1,7 +1,7 @@
 {
   "name": "@lost-types/range",
   "version": "0.1.1",
-  "description": "Range",
+  "description": "Range type from lost-types series",
   "main": "lib/index.js",
   "files": [
     "lib"
@@ -14,6 +14,14 @@
   },
   "author": "snigo",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snigo/range.git"
+  },
+  "bugs": {
+    "url": "https://github.com/snigo/range/issues"
+  },
+  "homepage": "https://github.com/snigo/range#readme",
   "devDependencies": {
     "@ampproject/rollup-plugin-closure-compiler": "^0.24.0",
     "@babel/cli": "^7.8.4",
