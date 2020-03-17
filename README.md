@@ -68,9 +68,52 @@ Parameters:
 | **Parameter** | **Type** | **Default value** | **Notes**                                      |
 |---------------|----------|-------------------|------------------------------------------------|
 | `rangeStart`  | `number` |         0         | Defaults to zero if only one argument provided |
-| `rangeEnd`    | `number` |                   |                                                |
+| `rangeEnd`    | `number` |                   | rangeEnd is inclusive in the range             |
 | `step`        | `number` |         1         | Cannot be less or equal than 0                 |
 
 ```js
 
-new Range(-1, 1, 0.01); // Range { from: -1, to: 1, step: 0.01 }
+new Range(-1, 1, 0.01); // Range{ from: -1, to: 1, step: 0.01 }
+new Range(-1, 1); // Range{ from: -1, to: 1, step: 1 }
+new Range(100); // Range{ from: 0, to: 100, step: 1 }
+new Range(); // Range{}
+
+```
+
+### Properties
+
+* `**Range.length**`
+
+Returns total number of numbers in the range, if range will be converted to the array
+```js
+
+const range = new Range(0, 100, 0.01);
+range.length; // 10001
+
+const array = [...range];
+array.length; // 10001
+
+```
+It is useful to check the length prior to converting range into array:
+```js
+
+const range = new Range(Infinity);
+range.length; // Infinity
+
+[...range]; // Throws error: Cannot iterate through infinite range
+
+```
+
+* `**Range.from**`, `**Range.to**` and `**Range.step**`
+
+Return initial values used to create the range:
+```js
+
+const range = new Range(0, 100, 0.01);
+range.from; // 0
+range.to; // 100
+range.step; // 0.01
+
+```
+
+
