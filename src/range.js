@@ -1,13 +1,37 @@
 import { getPrecision, modulo } from '@lost-types/mathx';
 // eslint-disable-next-line
-import regeneratorRuntime from 'regenerator-runtime';
+import 'regenerator-runtime';
 
-const MAX_ARRAY_SIZE = 4294967295;
+/**
+ * @function checkLength Helper function that determines
+ * if Range is iterable and throws error if not
+ */
+function checkLength() {
+  const MAX_ARRAY_SIZE = 4294967295;
+  if (this.length > MAX_ARRAY_SIZE) {
+    throw Error('Cannot iterate infinite size range');
+  }
+}
 
+/**
+ * @function normalizeStep Helper function to verify step argument
+ *
+ * @param {number} step Step value
+ */
+function normalizeStep(step = 1) {
+  step = +step;
+  if (Number.isNaN(step)) step = 1;
+  if (step === 0 || step < 0) throw TypeError('Step cannot be 0 or negative number');
+
+  return step;
+}
+
+
+/**
+ * @class
+ */
 class Range {
   /**
-   * @constructor
-   *
    * If only one argument provided the output will be
    * [0 ... number] range
    *
@@ -18,7 +42,8 @@ class Range {
   constructor(min = 0, max, step = 1) {
     const from = arguments.length > 1 ? +min : 0;
     const to = arguments.length > 1 ? +max : +min;
-    if (Number.isNaN(from) || Number.isNaN(to)) return NaN;
+    if (Number.isNaN(from) || Number.isNaN(to) || !arguments.length) return undefined;
+    step = normalizeStep(step);
     Object.defineProperties(this, {
       from: {
         value: from,
@@ -43,9 +68,7 @@ class Range {
    * It will try to account for presicion errors
    */
   * [Symbol.iterator]() {
-    if (this.length > MAX_ARRAY_SIZE) {
-      throw Error('Cannot iterate infinite size range');
-    }
+    checkLength.call(this);
 
     const isAsc = this.from <= this.to;
     const precision = Math.max(
@@ -73,8 +96,13 @@ class Range {
    * @param {any} iterableNumbers Any iterable structure holding numbers
    */
   static from(iterableNumbers) {
-    const min = Math.min(...iterableNumbers) || 0;
-    const max = Math.max(...iterableNumbers) || 0;
+    if (iterableNumbers == null) return new Range();
+    if (typeof iterableNumbers[Symbol.iterator] !== 'function') return new Range();
+    if (iterableNumbers.length !== undefined && !iterableNumbers.length) return new Range();
+    if (iterableNumbers.size !== undefined && !iterableNumbers.size) return new Range();
+
+    const min = Math.min(...iterableNumbers);
+    const max = Math.max(...iterableNumbers);
 
     return new Range(min, max);
   }
@@ -93,9 +121,8 @@ class Range {
    * @param {number} step Optional step, if different from initial range step
    */
   forEach(fn, step = this.step) {
-    if (this.length > MAX_ARRAY_SIZE) {
-      throw Error('Cannot iterate infinite size range');
-    }
+    checkLength.call(this);
+    step = normalizeStep(step);
 
     const isAsc = this.from <= this.to;
     const precision = Math.max(getPrecision(step), getPrecision(this.from), getPrecision(this.to));
@@ -121,9 +148,8 @@ class Range {
    * @param {number} step Optional step, if different from initial range step
    */
   forEachReverse(fn, step = this.step) {
-    if (this.length > MAX_ARRAY_SIZE) {
-      throw Error('Cannot iterate infinite size range');
-    }
+    checkLength.call(this);
+    step = normalizeStep(step);
 
     const isAsc = this.from <= this.to;
     const precision = Math.max(getPrecision(step), getPrecision(this.from), getPrecision(this.to));
@@ -146,6 +172,7 @@ class Range {
    * The length of the resulting array when toArray() method invoked
    */
   get length() {
+    if (this.to === undefined || this.from === undefined) return 0;
     return Math.round(Math.abs(this.to - this.from) / this.step) + 1;
   }
 
@@ -172,6 +199,7 @@ class Range {
    * range.center; // 0
    */
   get center() {
+    if (this.to === undefined || this.from === undefined) return undefined;
     return this.min + (this.max - this.min) / 2;
   }
 
