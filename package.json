@@ -1,6 +1,6 @@
 {
   "name": "@lost-types/range",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Range type from lost-types series",
   "main": "lib/index.js",
   "files": [
