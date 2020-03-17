@@ -82,7 +82,7 @@ new Range(); // Range{}
 
 ### Properties
 
-* `**Range.length**`
+* `Range.length`
 
 Returns total number of numbers in the range, if range will be converted to the array
 ```js
@@ -104,7 +104,9 @@ range.length; // Infinity
 
 ```
 
-* `**Range.from**`, `**Range.to**` and `**Range.step**`
+* `Range.from`
+* `Range.to`
+* `Range.step`
 
 Return initial values used to create the range:
 ```js
@@ -116,4 +118,113 @@ range.step; // 0.01
 
 ```
 
+* `Range.max`
+* `Range.min`
+* `Range.center`
 
+Return the number from the range with the greatest value, the least value and the center of the range
+```js
+
+const range = new Range(5, -5);
+range.min; // -5
+range.max; // 5
+range.center; // 0
+
+```
+
+### Methods
+
+* `Range.from()`
+
+Static method on Range to generate range from array or any other iterable type. Returns new Range instance.
+
+| **Parameter** | **Type** | **Default value** | **Notes**                                      |
+|---------------|----------|-------------------|------------------------------------------------|
+| `iterable`    | `any`    |                   | Any iterable type, like Array, Set, String...  |
+
+```js
+
+const arr = [7, 6, 5, 42, 16, 9];
+Range.from(arr); // Range{ from: 5, to: 42, step: 1 }
+
+const str = '420';
+// By no way I encourage you to do this! :)
+Range.from(str); // Range{ from: 0, to: 4, step: 1 }
+
+Range.from([]); // Range{}
+
+```
+
+* `Range.prototype.clamp()`
+
+Similarly to [_.clamp()](https://lodash.com/docs/4.17.15#clamp), ensures resulting number is in the range. Returns clamped number.
+
+| **Parameter** | **Type** | **Default value** | **Notes**                                      |
+|---------------|----------|-------------------|------------------------------------------------|
+| `number`      | `number` |                   |                                                |
+
+```js
+
+const range = new Range(99);
+range.clamp(100); // 99
+range.clamp(-42); // 0
+range.clamp(15); // 15
+range.clamp(); // NaN
+
+```
+
+* `Range.prototype.forEach()`
+
+Executes provided function on every element of the range with provided step. If no step provided initial this.step will be used. Similarly to forEach in `Array`, following arguments will be passed to the callback:
+  * currentValue
+  * index
+  * range
+
+Will try to account for precision errors between numbers in the range. Always returns `undefined`.
+
+| **Parameter** | **Type**  | **Default value** | **Notes**                                      |
+|---------------|-----------|-------------------|------------------------------------------------|
+| `fn`          |`function` |                   | To be invoked as fn(number, index, range)      |
+| `step`        |`number`   | Range.step        | forEach() can be invoked with custom step      |
+
+```js
+
+const range = new Range(-1, 1);
+range.forEach((number) => {
+  console.log(number);
+}, 0.5);
+// -1
+// -0.5
+// 0
+// 0.5
+// 1
+
+```
+
+* `Range.prototype.forEachReverse()`
+
+Similarly to `Range.prototype.forEach()`, executes provided function on every element of the range with provided step in reversed manner. If no step provided initial this.step will be used. Similarly to forEach in `Array`, following arguments will be passed to the callback:
+  * currentValue
+  * index
+  * range
+
+Will try to account for precision errors between numbers in the range. Always returns `undefined`.
+
+| **Parameter** | **Type**  | **Default value** | **Notes**                                        |
+|---------------|-----------|-------------------|--------------------------------------------------|
+| `fn`          |`function` |                   | To be invoked as fn(number, index, range)        |
+| `step`        |`number`   | Range.step        | forEachReverse() can be invoked with custom step |
+
+```js
+
+const range = new Range(-1, 1);
+range.forEachReverse((number) => {
+  console.log(number);
+}, 0.5);
+// 1
+// 0.5
+// 0
+// -0.5
+// -1
+
+```
