@@ -35,13 +35,13 @@ class Range {
    * If only one argument provided the output will be
    * [0 ... number] range
    *
-   * @param {number} min Number the range will start with
-   * @param {number} max Number the range will end on, including this number
+   * @param {number} rangeStart Number the range will start with
+   * @param {number} rangeEnd Number the range will end on, including this number
    * @param {number} step Step size, default to 1
    */
-  constructor(min = 0, max, step = 1) {
-    const from = arguments.length > 1 ? +min : 0;
-    const to = arguments.length > 1 ? +max : +min;
+  constructor(rangeStart = 0, rangeEnd, step = 1) {
+    const from = arguments.length > 1 ? +rangeStart : 0;
+    const to = arguments.length > 1 ? +rangeEnd : +rangeStart;
     if (Number.isNaN(from) || Number.isNaN(to) || !arguments.length) return undefined;
     step = normalizeStep(step);
     Object.defineProperties(this, {

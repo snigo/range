@@ -136,6 +136,8 @@ range.center; // 0
 
 ```
 
+Note: All properties of the Range instance are read-only
+
 ### Methods
 
 #### `Range.from()`
