@@ -194,7 +194,7 @@ class Range {
 
 
   /**
-   * Returns centeral number in the range:
+   * Returns central number in the range:
    * const range = new Range(-100, 100);
    * range.center; // 0
    */
