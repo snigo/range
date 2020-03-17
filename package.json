@@ -1,0 +1,30 @@
+{
+  "name": "@lost-types/range",
+  "version": "0.1.0",
+  "description": "Range",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "snigo",
+  "license": "MIT",
+  "devDependencies": {
+    "@ampproject/rollup-plugin-closure-compiler": "^0.24.0",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^25.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jest": "^23.8.2",
+    "jest": "^25.1.0",
+    "rollup": "^2.0.6",
+    "rollup-plugin-babel": "^4.4.0"
+  },
+  "dependencies": {
+    "@lost-types/mathx": "^0.1.0"
+  }
+}
