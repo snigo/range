@@ -25,7 +25,7 @@ test('length and step properties', () => {
 
   const rangeWithCustomStep = new Range(0, 9, 0.5);
   expect(rangeWithCustomStep.step).toBe(0.5);
-  expect(rangeWithCustomStep.length).toBe(20);
+  expect(rangeWithCustomStep.length).toBe(19);
 });
 
 test('min, max and center properties', () => {

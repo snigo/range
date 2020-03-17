@@ -1,4 +1,6 @@
 import { getPrecision, modulo } from '@lost-types/mathx';
+// eslint-disable-next-line
+import regeneratorRuntime from 'regenerator-runtime';
 
 const MAX_ARRAY_SIZE = 4294967295;
 
