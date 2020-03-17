@@ -82,7 +82,7 @@ new Range(); // Range{}
 
 ### Properties
 
-* `Range.length`
+#### `Range.length`
 
 Returns total number of numbers in the range, if range will be converted to the array
 ```js
@@ -104,9 +104,11 @@ range.length; // Infinity
 
 ```
 
-* `Range.from`
-* `Range.to`
-* `Range.step`
+***
+
+#### `Range.from`
+#### `Range.to`
+#### `Range.step`
 
 Return initial values used to create the range:
 ```js
@@ -118,9 +120,11 @@ range.step; // 0.01
 
 ```
 
-* `Range.max`
-* `Range.min`
-* `Range.center`
+***
+
+#### `Range.max`
+#### `Range.min`
+#### `Range.center`
 
 Return the number from the range with the greatest value, the least value and the center of the range
 ```js
@@ -134,7 +138,7 @@ range.center; // 0
 
 ### Methods
 
-* `Range.from()`
+#### `Range.from()`
 
 Static method on Range to generate range from array or any other iterable type. Returns new Range instance.
 
@@ -155,7 +159,9 @@ Range.from([]); // Range{}
 
 ```
 
-* `Range.prototype.clamp()`
+***
+
+#### `Range.prototype.clamp()`
 
 Similarly to [_.clamp()](https://lodash.com/docs/4.17.15#clamp), ensures resulting number is in the range. Returns clamped number.
 
@@ -173,7 +179,9 @@ range.clamp(); // NaN
 
 ```
 
-* `Range.prototype.forEach()`
+***
+
+#### `Range.prototype.forEach()`
 
 Executes provided function on every element of the range with provided step. If no step provided initial this.step will be used. Similarly to forEach in `Array`, following arguments will be passed to the callback:
   * currentValue
@@ -201,7 +209,9 @@ range.forEach((number) => {
 
 ```
 
-* `Range.prototype.forEachReverse()`
+***
+
+#### `Range.prototype.forEachReverse()`
 
 Similarly to `Range.prototype.forEach()`, executes provided function on every element of the range with provided step in reversed manner. If no step provided initial this.step will be used. Similarly to forEach in `Array`, following arguments will be passed to the callback:
   * currentValue
@@ -226,5 +236,106 @@ range.forEachReverse((number) => {
 // 0
 // -0.5
 // -1
+
+```
+
+***
+
+#### `Range.prototype.getFraction()`
+
+Returns ratio of the provided number propotional to the range.
+
+| **Parameter** | **Type** | **Default value** | **Notes**                                      |
+|---------------|----------|-------------------|------------------------------------------------|
+| `number`      | `number` |                   |                                                |
+| `precision`   | `number` | 12                | Optional                                       |
+
+Useful to calculate percentage value of the range.
+
+```js
+
+const range = new Range(255);
+range.getFraction(17, 4); // 0.0667
+// Value 17 represents 6.67% of the [0 ... 255] range
+
+```
+
+***
+
+#### `Range.prototype.fromFraction()`
+
+Inverse method from `Range.prototype.getFraction()`. Returns number represented by provided ratio relative to the range.
+
+| **Parameter** | **Type** | **Default value** | **Notes**                                      |
+|---------------|----------|-------------------|------------------------------------------------|
+| `ratio`       | `number` |                   |                                                |
+| `precision`   | `number` | 12                | Optional                                       |
+
+Useful to calculate value from the percentage.
+
+```js
+
+const range = new Range(255);
+range.fromFraction(0.065, 0); // 17
+// Value 17 represents 6.5% of the [0 ... 255] range with 0 floating point precision
+
+```
+
+***
+
+#### `Range.prototype.toArray()`
+
+Converts range to array. Throws error with range length is greater than max possible array size.
+
+```js
+
+const range = new Range(0.1, 0.5, 0.1);
+range.toArray(); // [0.1, 0.2, 0.3, 0.4, 0.5]
+// same as [...range]
+
+const infiniteRange = new Range(0.1, 0.5, Number.MIN_VALUE);
+infiniteRange.length; // Infinity
+range.toArray(); // throws Error: Cannot iterate infinite size range
+
+```
+
+***
+
+#### `Range.prototype.mod()`
+
+Returns number in the range which is result if modulo operation of provided input number to range.
+
+| **Parameter** | **Type** | **Default value** | **Notes**                                      |
+|---------------|----------|-------------------|------------------------------------------------|
+| `number`      | `number` |                   |                                                |
+
+It's really much easier to explain on the example:
+
+```js
+
+const range = new Range(359);
+range.mod(360); // 0
+range.mod(-45); // 315
+range.mod(15); // 15
+range.mod(89352); // 72
+
+```
+
+***
+
+#### `Range.prototype.slice()`
+
+Slices range into provided number of equal parts. Returns array of numbers representing starting boundaries of each such slice.
+
+| **Parameter** | **Type** | **Default value** | **Notes**                                      |
+|---------------|----------|-------------------|------------------------------------------------|
+| `parts`       | `number` |                   | Cannot be negative number                      |
+
+```js
+
+const range = new Range(359);
+range.slice(6); // [0, 60, 120, 180, 240, 300]
+range.slice(9); // [0, 40, 80, 120, 160, 200, 240, 280, 320]
+range.slice(12); // [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330]
 
 ```
