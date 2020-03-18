@@ -32,7 +32,7 @@ range.toArray(); // [1, 2]
 ```
 There is no particular reason behind it, I just wanted to humanize behavior.
 
-Why do we need Range type? If you think deeply enough you will realize that we use ranges all the time. All the types and libraries from @lost-types series are exlusively created for my personal usage, Range in particular I've created as a helper type for another type in @lost-types series - Color, here are some usage examples:
+Why do we need Range type? If you think deeply enough you will realize that we use ranges all the time. All the types and libraries from @lost-types series are exclusively created for my personal usage, Range in particular I've created as a helper type for another type in @lost-types series - Color, here are some usage examples:
 ```js
 
 const hueRange = new Range(359);
@@ -63,7 +63,7 @@ More examples below in the API section.
 
 ### Constructor
 
-Creates new Range instance.
+Creates a new Range instance.
 Parameters:
 | **Parameter** | **Type** | **Default value** | **Notes**                                      |
 |---------------|----------|-------------------|------------------------------------------------|
@@ -142,7 +142,7 @@ Note: All properties of the Range instance are read-only
 
 #### `Range.from()`
 
-Static method on Range to generate range from array or any other iterable type. Returns new Range instance.
+Static method on Range to generate range from array or any other iterable type. Returns a new Range instance.
 
 | **Parameter** | **Type** | **Default value** | **Notes**                                      |
 |---------------|----------|-------------------|------------------------------------------------|
@@ -165,7 +165,7 @@ Range.from([]); // Range{}
 
 #### `Range.prototype.clamp()`
 
-Similarly to [_.clamp()](https://lodash.com/docs/4.17.15#clamp), ensures resulting number is in the range. Returns clamped number.
+Similarly to [_.clamp()](https://lodash.com/docs/4.17.15#clamp), ensures the resulting number is in the range. Returns clamped number.
 
 | **Parameter** | **Type** | **Default value** | **Notes**                                      |
 |---------------|----------|-------------------|------------------------------------------------|
@@ -205,7 +205,7 @@ range.has(); // false
 
 #### `Range.prototype.forEach()`
 
-Executes provided function on every element of the range with provided step. If no step provided initial this.step will be used. Similarly to forEach in `Array`, following arguments will be passed to the callback:
+Executes provided function on every element of the range with the provided step. If no step provided initial `Range.step` will be used. Similarly to forEach in `Array`, following arguments will be passed to the callback:
   * currentValue
   * index
   * range
@@ -235,7 +235,7 @@ range.forEach((number) => {
 
 #### `Range.prototype.forEachReverse()`
 
-Similarly to `Range.prototype.forEach()`, executes provided function on every element of the range with provided step in reversed manner. If no step provided initial this.step will be used. Similarly to forEach in `Array`, following arguments will be passed to the callback:
+Similarly to `Range.prototype.forEach()`, executes provided function on every element of the range with the provided step in reversed manner. If no step provided initial `Range.step` will be used. Similarly to forEach in `Array`, following arguments will be passed to the callback:
   * currentValue
   * index
   * range
@@ -265,7 +265,7 @@ range.forEachReverse((number) => {
 
 #### `Range.prototype.getFraction()`
 
-Returns ratio of the provided number propotional to the range.
+Returns ratio of the provided number proportional to the range.
 
 | **Parameter** | **Type** | **Default value** | **Notes**                                      |
 |---------------|----------|-------------------|------------------------------------------------|
@@ -325,7 +325,7 @@ range.toArray(); // throws Error: Cannot iterate infinite size range
 
 #### `Range.prototype.mod()`
 
-Returns number in the range which is result if modulo operation of provided input number to range.
+Returns number in the range which is the result of modulo operation of the provided input number to the range.
 
 | **Parameter** | **Type** | **Default value** | **Notes**                                      |
 |---------------|----------|-------------------|------------------------------------------------|
@@ -347,7 +347,7 @@ range.mod(89352); // 72
 
 #### `Range.prototype.slice()`
 
-Slices range into provided number of equal parts. Returns array of numbers representing starting boundaries of each such slice.
+Slices range into the provided number of equal parts. Returns array of numbers representing starting boundaries of each such slice.
 
 | **Parameter** | **Type** | **Default value** | **Notes**                                      |
 |---------------|----------|-------------------|------------------------------------------------|
