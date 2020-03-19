@@ -107,6 +107,10 @@ class Range {
     return new Range(min, max);
   }
 
+  static get name() {
+    return 'Range';
+  }
+
 
   /**
    * Executes provided function on every element of the range
